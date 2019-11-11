@@ -1,6 +1,6 @@
 import logging.config
 import yaml
-
+import random
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
@@ -116,9 +116,30 @@ def update_followers_links_file(list_of_links_to_followers: list):
         push_to_yaml('svetlana_fominykh', list_of_links_to_followers)
 
 
+def filter_followers_links_file():
+    browser.implicitly_wait(5)
+    try:
+        list_for_filter = get_from_yaml('svetlana_fominykh')  # TODO запушить светлану фоминых в какой-то датник и брать оттуда
+        print('len of input list:', len(list_for_filter))
+        for link in list_for_filter:
+            browser.get(link)
+            numbers_of_following = get_clear_number(browser.find_element_by_css_selector(
+                '#react-root > section > main > div > header > section > ul > li:nth-child(3) > a > span').text.strip()
+                                                    )
+            if numbers_of_following > 700:
+                list_for_filter.remove(link)
+                print(link)
+
+        print('len of output list:', len(list_for_filter))
+        push_to_yaml('svetlana_fominykh', list_for_filter)
+        browser.close()
+    except NoSuchElementException:
+        logger.exception('ERROR on filter_followers_step')
+
 
 def like_first_post_of_every_follower():
     list_of_links_followers = get_from_yaml('svetlana_fominykh')
+    random.shuffle(list_of_links_followers)
     for link_to_the_follower_page in list_of_links_followers[:100]:
         browser.get(link_to_the_follower_page)
 
@@ -127,10 +148,10 @@ def like_first_post_of_every_follower():
             # здесь пытается поймать элмемент, которого нет, если страница пустая или закрытая
             link_to_latest_post_of_follower = browser.find_element_by_css_selector('#react-root > section > main > div > div> article > div:nth-child(1) > div > div:nth-child(1) > div:nth-child(1) > a').get_attribute('href')
             browser.get(link_to_latest_post_of_follower)
-            sleep(1)
+            sleep(0.5)
             like_button = browser.find_element_by_css_selector('span [aria-label="Нравится"]')
             like_button.click()
-            sleep(1)
+            sleep(0.5)
 
         except NoSuchElementException:
             logger.debug(f'{link_to_the_follower_page} is close, or follower have no posts')
@@ -149,9 +170,10 @@ def browser_close():
 
 if __name__ == '__main__':
 
-    login_page(login, password)
+    # login_page(login, password)
     # group_link = 'https://www.instagram.com/svetlana_fominykh/'
     # list_of_links_followers = get_list_of_followers_links(group_link)
     # update_followers_links_file(list_of_links_followers)
-    like_first_post_of_every_follower()
+    filter_followers_links_file()
+    # like_first_post_of_every_follower()
     browser_close()
