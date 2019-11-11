@@ -127,6 +127,7 @@ def like_first_post_of_every_follower():
             # здесь пытается поймать элмемент, которого нет, если страница пустая или закрытая
             link_to_latest_post_of_follower = browser.find_element_by_css_selector('#react-root > section > main > div > div> article > div:nth-child(1) > div > div:nth-child(1) > div:nth-child(1) > a').get_attribute('href')
             browser.get(link_to_latest_post_of_follower)
+            sleep(1)
             like_button = browser.find_element_by_css_selector('span [aria-label="Нравится"]')
             like_button.click()
             sleep(1)
@@ -140,7 +141,7 @@ def like_first_post_of_every_follower():
 
 def browser_close():
     browser.close()
-
+    raise SystemExit
 
 
 
@@ -149,8 +150,8 @@ def browser_close():
 if __name__ == '__main__':
 
     login_page(login, password)
-    group_link = 'https://www.instagram.com/svetlana_fominykh/'
-    list_of_links_followers = get_list_of_followers_links(group_link)
+    # group_link = 'https://www.instagram.com/svetlana_fominykh/'
+    # list_of_links_followers = get_list_of_followers_links(group_link)
     # update_followers_links_file(list_of_links_followers)
     like_first_post_of_every_follower()
     browser_close()

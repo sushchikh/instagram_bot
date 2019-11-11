@@ -1,16 +1,5 @@
-10.11.19   15:30:22 - __main__ - ERROR - ERROR on group page
+10.11.19   15:54:46 - __main__ - ERROR - ERROR on group page
 Traceback (most recent call last):
-  File "C:/Users/ART/instagram_bot/test/insta_test.py", line 55, in get_list_of_followers_links
-    list_of_followers = browser.find_elements_by_css_selector('div [role = "dialog"] li a:nth-child(1)')
-  File "C:\Users\ART\AppData\Local\Programs\Python\Python38-32\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 614, in find_elements_by_css_selector
-    return self.find_elements(by=By.CSS_SELECTOR, value=css_selector)
-  File "C:\Users\ART\AppData\Local\Programs\Python\Python38-32\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 1005, in find_elements
-    return self.execute(Command.FIND_ELEMENTS, {
-  File "C:\Users\ART\AppData\Local\Programs\Python\Python38-32\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
-    self.error_handler.check_response(response)
-  File "C:\Users\ART\AppData\Local\Programs\Python\Python38-32\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
-    raise exception_class(message, screen, stacktrace)
-selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed
-from unknown error: web view not found
-  (Session info: chrome=78.0.3904.97)
-
+  File "C:/Users/ART/instagram_bot/test/insta_test.py", line 57, in get_list_of_followers_links
+    last_of_followers = list_of_followers[-1]
+IndexError: list index out of range
