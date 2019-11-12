@@ -53,7 +53,7 @@ def login_page(login, password):
         raise SystemExit
 
 
-def get_list_of_followers_links(group_link, browser):
+def get_list_of_followers_links(group_link):
     """
     Get list of all followers in account
     :param group_link: link to the page in instagram, that we want to parse
@@ -130,20 +130,21 @@ def filter_followers_links_file():
         for link in list_for_filter:
             browser.get(link)
             numbers_of_following = get_clear_number(browser.find_element_by_css_selector(
-                '#react-root > section > main > div > header > section > ul > li:nth-child(3) > a > span').text.strip()
-                                                    )
+                '#react-root > section > main > div > header > section > ul > li:nth-child(3)').text.strip()
+                                                        )
             if numbers_of_following < 700:
                 filtered_output_list.append(link)
-                print(link)
 
             if len(filtered_output_list) % 50 == 0:
                 push_to_yaml('svetlana_fominykh_filtered', filtered_output_list)
+            sleep(10)
         print('len of output list:', len(filtered_output_list))
         push_to_yaml('svetlana_fominykh_filtered', filtered_output_list)
         browser.close()
     except NoSuchElementException:
-        logger.exception('ERROR on filter_followers_step')
+        logger.exception('ERROR on filter_followers_step, link with error:', link)
     finally:
+        logger.error('Link with bug:', link)
         push_to_yaml('svetlana_fominykh_filtered', filtered_output_list)
 
 
@@ -183,10 +184,11 @@ def browser_close():
 
 if __name__ == '__main__':
 
-    # login_page(login, password)
+    login_page(login, password)
     # group_link = 'https://www.instagram.com/svetlana_fominykh/'
     # list_of_links_followers = get_list_of_followers_links(group_link)
     # update_followers_links_file(list_of_links_followers)
-    # filter_followers_links_file()
+
+    filter_followers_links_file()
     # like_first_post_of_every_follower()
     browser_close()

@@ -1,16 +1,15 @@
-12.11.19   08:55:00 - __main__ - ERROR - ERROR on logging form
+12.11.19   19:37:22 - __main__ - ERROR - ERROR on filter_followers_step
 Traceback (most recent call last):
-  File "/home/krot/instagram_bot/py_raw/insta_test.py", line 41, in login_page
-    login_inputs = browser.find_elements_by_tag_name('input')
-  File "/usr/local/lib/python3.8/dist-packages/selenium/webdriver/remote/webdriver.py", line 546, in find_elements_by_tag_name
-    return self.find_elements(by=By.TAG_NAME, value=name)
-  File "/usr/local/lib/python3.8/dist-packages/selenium/webdriver/remote/webdriver.py", line 1005, in find_elements
-    return self.execute(Command.FIND_ELEMENTS, {
-  File "/usr/local/lib/python3.8/dist-packages/selenium/webdriver/remote/webdriver.py", line 321, in execute
+  File "C:/Users/ART/instagram_bot/py_raw/insta_test.py", line 132, in filter_followers_links_file
+    numbers_of_following = get_clear_number(browser.find_element_by_css_selector(
+  File "C:\Users\ART\AppData\Local\Programs\Python\Python38-32\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 598, in find_element_by_css_selector
+    return self.find_element(by=By.CSS_SELECTOR, value=css_selector)
+  File "C:\Users\ART\AppData\Local\Programs\Python\Python38-32\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\ART\AppData\Local\Programs\Python\Python38-32\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
     self.error_handler.check_response(response)
-  File "/usr/local/lib/python3.8/dist-packages/selenium/webdriver/remote/errorhandler.py", line 242, in check_response
+  File "C:\Users\ART\AppData\Local\Programs\Python\Python38-32\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
     raise exception_class(message, screen, stacktrace)
-selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed
-from unknown error: web view not found
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"css selector","selector":"#react-root > section > main > div > header > section > ul > li:nth-child(3) > a > span"}
   (Session info: chrome=78.0.3904.97)
 
