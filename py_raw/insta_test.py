@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 login = (get_login_password())['login']
 password = (get_login_password())['password']
 
-# Открытие браузера и задание времени ожидания элемента на странице
+# # Открытие браузера и задание времени ожидания элемента на странице
 browser = webdriver.Chrome()
 browser.implicitly_wait(6)
 
@@ -53,7 +53,7 @@ def login_page(login, password):
         raise SystemExit
 
 
-def get_list_of_followers_links(group_link):
+def get_list_of_followers_links(group_link, browser):
     """
     Get list of all followers in account
     :param group_link: link to the page in instagram, that we want to parse
@@ -117,6 +117,12 @@ def update_followers_links_file(list_of_links_to_followers: list):
 
 
 def filter_followers_links_file():
+    """
+    Get list of followers from file, iter it, and check, if user have less than ___ subscribes - add him to outputlist
+    else, ignore him
+    :return:
+    """
+    filtered_output_list = []
     browser.implicitly_wait(5)
     try:
         list_for_filter = get_from_yaml('svetlana_fominykh')  # TODO запушить светлану фоминых в какой-то датник и брать оттуда
@@ -126,27 +132,34 @@ def filter_followers_links_file():
             numbers_of_following = get_clear_number(browser.find_element_by_css_selector(
                 '#react-root > section > main > div > header > section > ul > li:nth-child(3) > a > span').text.strip()
                                                     )
-            if numbers_of_following > 700:
-                list_for_filter.remove(link)
+            if numbers_of_following < 700:
+                filtered_output_list.append(link)
                 print(link)
 
-        print('len of output list:', len(list_for_filter))
-        push_to_yaml('svetlana_fominykh', list_for_filter)
+            if len(filtered_output_list) % 50 == 0:
+                push_to_yaml('svetlana_fominykh_filtered', filtered_output_list)
+        print('len of output list:', len(filtered_output_list))
+        push_to_yaml('svetlana_fominykh_filtered', filtered_output_list)
         browser.close()
     except NoSuchElementException:
         logger.exception('ERROR on filter_followers_step')
+    finally:
+        push_to_yaml('svetlana_fominykh_filtered', filtered_output_list)
+
 
 
 def like_first_post_of_every_follower():
-    list_of_links_followers = get_from_yaml('svetlana_fominykh')
+    list_of_links_followers = get_from_yaml('svetlana_fominykh_filtered')
     random.shuffle(list_of_links_followers)
-    for link_to_the_follower_page in list_of_links_followers[:100]:
+    for link_to_the_follower_page in list_of_links_followers:
         browser.get(link_to_the_follower_page)
 
         try:
             browser.implicitly_wait(0.5)
             # здесь пытается поймать элмемент, которого нет, если страница пустая или закрытая
-            link_to_latest_post_of_follower = browser.find_element_by_css_selector('#react-root > section > main > div > div> article > div:nth-child(1) > div > div:nth-child(1) > div:nth-child(1) > a').get_attribute('href')
+            link_to_latest_post_of_follower = browser.find_element_by_css_selector(
+                '#react-root > section > main > div > div> article > '
+                'div:nth-child(1) > div > div:nth-child(1) > div:nth-child(1) > a').get_attribute('href')
             browser.get(link_to_latest_post_of_follower)
             sleep(0.5)
             like_button = browser.find_element_by_css_selector('span [aria-label="Нравится"]')
@@ -174,6 +187,6 @@ if __name__ == '__main__':
     # group_link = 'https://www.instagram.com/svetlana_fominykh/'
     # list_of_links_followers = get_list_of_followers_links(group_link)
     # update_followers_links_file(list_of_links_followers)
-    filter_followers_links_file()
+    # filter_followers_links_file()
     # like_first_post_of_every_follower()
     browser_close()
