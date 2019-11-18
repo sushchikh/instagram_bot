@@ -45,6 +45,7 @@ def login_page(login, password):
         login_inputs[1].send_keys(password)
         submit_btn = browser.find_element_by_css_selector('button > div')
         submit_btn.click()
+        sleep(3)
         not_now_btn = browser.find_elements_by_tag_name('div [role = "dialog"] > div > div > button')
         not_now_btn[-1].click()
     except:  # TODO нормально прописать разные варианты ексепшенов
@@ -122,11 +123,12 @@ def filter_followers_links_file():
     else, ignore him
     :return:
     """
-    filtered_output_list = []
+    filtered_output_list = get_from_yaml('svetlana_fominykh_filtered')
     browser.implicitly_wait(5)
     try:
         list_for_filter = get_from_yaml('svetlana_fominykh')  # TODO запушить светлану фоминых в какой-то датник и брать оттуда
         print('len of input list:', len(list_for_filter))
+        random.shuffle(list_for_filter)
         for link in list_for_filter:
             browser.get(link)
             numbers_of_following = get_clear_number(browser.find_element_by_css_selector(
@@ -137,7 +139,7 @@ def filter_followers_links_file():
 
             if len(filtered_output_list) % 50 == 0:
                 push_to_yaml('svetlana_fominykh_filtered', filtered_output_list)
-            sleep(10)
+            sleep(1)
         print('len of output list:', len(filtered_output_list))
         push_to_yaml('svetlana_fominykh_filtered', filtered_output_list)
         browser.close()
@@ -189,6 +191,6 @@ if __name__ == '__main__':
     # list_of_links_followers = get_list_of_followers_links(group_link)
     # update_followers_links_file(list_of_links_followers)
 
-    filter_followers_links_file()
-    # like_first_post_of_every_follower()
+    # filter_followers_links_file()
+    like_first_post_of_every_follower()
     browser_close()
