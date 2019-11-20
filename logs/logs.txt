@@ -1,15 +1,10 @@
-18.11.19   20:33:32 - __main__ - ERROR - ERROR on logging form
+19.11.19   10:53:13 - __main__ - ERROR - ERROR on logging form
 Traceback (most recent call last):
-  File "C:/Users/ART/instagram_bot/py_raw/insta_test.py", line 49, in login_page
+  File "/home/krot/5/instagram_bot/py_raw/insta_test.py", line 50, in login_page
     not_now_btn[-1].click()
-  File "C:\Users\ART\AppData\Local\Programs\Python\Python38-32\lib\site-packages\selenium\webdriver\remote\webelement.py", line 80, in click
-    self._execute(Command.CLICK_ELEMENT)
-  File "C:\Users\ART\AppData\Local\Programs\Python\Python38-32\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
-    return self._parent.execute(command, params)
-  File "C:\Users\ART\AppData\Local\Programs\Python\Python38-32\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
-    self.error_handler.check_response(response)
-  File "C:\Users\ART\AppData\Local\Programs\Python\Python38-32\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
-    raise exception_class(message, screen, stacktrace)
-selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
-  (Session info: chrome=78.0.3904.97)
-
+IndexError: list index out of range
+20.11.19   14:14:37 - __main__ - ERROR - ERROR on logging form
+Traceback (most recent call last):
+  File "/home/krot/5/instagram_bot/py_raw/insta_test.py", line 42, in login_page
+    login_inputs[0].clear()
+IndexError: list index out of range

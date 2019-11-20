@@ -134,7 +134,7 @@ def filter_followers_links_file():
             numbers_of_following = get_clear_number(browser.find_element_by_css_selector(
                 '#react-root > section > main > div > header > section > ul > li:nth-child(3)').text.strip()
                                                         )
-            if numbers_of_following < 700:
+            if numbers_of_following < 700 and link not in filtered_output_list:
                 filtered_output_list.append(link)
 
             if len(filtered_output_list) % 50 == 0:
@@ -163,15 +163,20 @@ def like_first_post_of_every_follower():
             link_to_latest_post_of_follower = browser.find_element_by_css_selector(
                 '#react-root > section > main > div > div> article > '
                 'div:nth-child(1) > div > div:nth-child(1) > div:nth-child(1) > a').get_attribute('href')
-            browser.get(link_to_latest_post_of_follower)
-            sleep(0.5)
-            like_button = browser.find_element_by_css_selector('span [aria-label="Нравится"]')
-            like_button.click()
-            sleep(0.5)
-
         except NoSuchElementException:
             logger.debug(f'{link_to_the_follower_page} is close, or follower have no posts')
 
+        try:
+            browser.get(link_to_latest_post_of_follower)
+            sleep(0.5)
+            like_button = browser.find_element_by_css_selector('span [aria-label="Like"]')
+            like_button.click()
+            sleep(0.5)
+        except UnboundLocalError:
+            print('не нашел кнопки лайк на странице')
+            continue
+        except NoSuchElementException:
+            continue
 
 
 
@@ -190,7 +195,6 @@ if __name__ == '__main__':
     # group_link = 'https://www.instagram.com/svetlana_fominykh/'
     # list_of_links_followers = get_list_of_followers_links(group_link)
     # update_followers_links_file(list_of_links_followers)
-
     # filter_followers_links_file()
     like_first_post_of_every_follower()
     browser_close()
