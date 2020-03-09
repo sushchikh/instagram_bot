@@ -1,11 +1,6 @@
-import random
-from moduls import get_from_yaml
+import yaml
 
-def get_words_for_comment():
-    list_of_comments = get_from_yaml('comments')
-    random.shuffle(list_of_comments)
-    return list_of_comments[-1]
-
-if __name__ == '__main__':
-    comment = get_words_for_comment()
-    print(comment)
+with open(f'../dats/a.sushchikh@gmail.com_filtered_followers.yaml', 'r') as file_of_filtered_followers:
+    dict_of_filtered_followers = yaml.safe_load(file_of_filtered_followers)
+for key, value in dict_of_filtered_followers.items():
+    print(key, value)

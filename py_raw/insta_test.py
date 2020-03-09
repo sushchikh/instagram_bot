@@ -108,13 +108,16 @@ def update_followers_links_file(list_of_links_to_followers: list):
     :return:
     """
     try:  # пытаемся открыть словарь ссылок, если он есть
-        list_for_compare = get_from_yaml('svetlana_fominykh')
+        # list_for_compare = get_from_yaml('svetlana_fominykh')
+        list_for_compare = get_from_yaml('fluid_followers')
         for item in list_of_links_to_followers:
             if item not in list_for_compare:
                 list_for_compare.append(item)
-        push_to_yaml('svetlana_fominykh', list_for_compare)
+        # push_to_yaml('svetlana_fominykh', list_for_compare)
+        push_to_yaml('fluid_followers', list_for_compare)
     except FileNotFoundError:
-        push_to_yaml('svetlana_fominykh', list_of_links_to_followers)
+        # push_to_yaml('svetlana_fominykh', list_of_links_to_followers)
+        push_to_yaml('fluid_followers', list_of_links_to_followers)
 
 
 def filter_followers_links_file():
@@ -152,7 +155,8 @@ def filter_followers_links_file():
 
 
 def like_first_post_of_every_follower():
-    list_of_links_followers = get_from_yaml('svetlana_fominykh_filtered')
+    # list_of_links_followers = get_from_yaml('svetlana_fominykh_filtered')
+    list_of_links_followers = get_from_yaml('fluid_followers')
     random.shuffle(list_of_links_followers)
     for link_to_the_follower_page in list_of_links_followers:
         browser.get(link_to_the_follower_page)
@@ -169,7 +173,7 @@ def like_first_post_of_every_follower():
         try:
             browser.get(link_to_latest_post_of_follower)
             sleep(0.5)
-            like_button = browser.find_element_by_css_selector('span [aria-label="Like"]')
+            like_button = browser.find_element_by_css_selector('span [aria-label="Нравится"]')
             like_button.click()
             sleep(0.5)
         except UnboundLocalError:
@@ -192,8 +196,9 @@ def browser_close():
 if __name__ == '__main__':
 
     login_page(login, password)
-    # group_link = 'https://www.instagram.com/svetlana_fominykh/'
-    # list_of_links_followers = get_list_of_followers_links(group_link)
+    group_link = 'https://www.instagram.com/svetlana_fominykh/'
+    # group_link = 'https://www.instagram.com/fluid_kirov/?hl=ru'
+    list_of_links_followers = get_list_of_followers_links(group_link)
     # update_followers_links_file(list_of_links_followers)
     # filter_followers_links_file()
     like_first_post_of_every_follower()

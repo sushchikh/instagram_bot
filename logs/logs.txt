@@ -1,10 +1,2 @@
-19.11.19   10:53:13 - __main__ - ERROR - ERROR on logging form
-Traceback (most recent call last):
-  File "/home/krot/5/instagram_bot/py_raw/insta_test.py", line 50, in login_page
-    not_now_btn[-1].click()
-IndexError: list index out of range
-20.11.19   14:14:37 - __main__ - ERROR - ERROR on logging form
-Traceback (most recent call last):
-  File "/home/krot/5/instagram_bot/py_raw/insta_test.py", line 42, in login_page
-    login_inputs[0].clear()
-IndexError: list index out of range
+09.03.20   09:51:59 - moduls - ERROR - 'all_followers'
+09.03.20   10:03:03 - moduls - ERROR - 'a.sushchikh@gmail.com'
