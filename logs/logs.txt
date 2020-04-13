@@ -1,2 +1,13 @@
 09.03.20   09:51:59 - moduls - ERROR - 'all_followers'
 09.03.20   10:03:03 - moduls - ERROR - 'a.sushchikh@gmail.com'
+10.03.20   08:50:29 - moduls - ERROR - Message: chrome not reachable
+  (Session info: chrome=79.0.3945.130)
+
+10.03.20   08:51:57 - moduls - ERROR - Message: no such window: window was already closed
+  (Session info: chrome=79.0.3945.130)
+
+13.04.20   08:46:48 - a89638857493@gmail.com - CRITICAL - Unable to login to Instagram! You will find more information in the logs above.
+13.04.20   08:49:18 - a89638857493@gmail.com - CRITICAL - Unable to login to Instagram! You will find more information in the logs above.
+13.04.20   09:08:51 - moduls - ERROR - Message: chrome not reachable
+  (Session info: chrome=80.0.3987.163)
+

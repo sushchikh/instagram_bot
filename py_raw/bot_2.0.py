@@ -19,8 +19,8 @@ if __name__ == "__main__":
     browser.implicitly_wait(5)
 
     logging_in(browser, login, password, logger)
-    list_of_group_links = get_links_to_groups(logger, user_name)
-    get_full_list_of_followers_links(browser, logger, list_of_group_links, user_name)  # отключаемый модуль
+    # list_of_group_links = get_links_to_groups(logger, user_name)
+    # get_full_list_of_followers_links(browser, logger, list_of_group_links, user_name)  # отключаемый модуль
     get_dict_of_filtered_followers(browser, logger, user_name)
     like_last_users_post(browser, logger, user_name)
 

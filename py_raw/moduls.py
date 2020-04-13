@@ -252,13 +252,19 @@ def like_last_users_post(browser, logger, user_name):
             try:
                 browser.get(link_to_latest_post_of_follower)
                 sleep(0.5)
-                like_button = browser.find_element_by_css_selector('span [aria-label="Нравится"]')
-                like_button.click()
+                # like_button = browser.find_element_by_css_selector('span [aria-label="Нравится"]')
+                # like_button.click()
+                like_button = browser.find_elements_by_css_selector("[aria-label=Like]")
+                for i in like_button:
+                    i.click()
+                # like_button.click()
+
                 sleep(0.5)
             except UnboundLocalError:
                 print('не нашел кнопки лайк на странице')
                 continue
             except NoSuchElementException:
+                print('не поймал кнопку лайка')
                 continue
 
 
